@@ -130,6 +130,7 @@ namespace DTimeManagerGUI
         private OperatorMode mode;
         private IAlarmEventService alarmEventService;
         private List<AlarmEvent> alarmEventList;
+        private AlarmEvent selectedItem;
         private void InitAlarmEventManagement()
         {
             alarmEventService = new AlarmEventService();
@@ -147,13 +148,10 @@ namespace DTimeManagerGUI
                     dgAlarms.SelectedIndex = -1;
                     btnRemove.Content = "CANCEL";
                     ResetInfoToEmpty();
-                    //lbMode.Content = "Adding Mode";
-                    //lbMode.Background = new SolidColorBrush(Colors.LightGreen);
                     break;
                 case OperatorMode.Update:
                     btnSave.Content = "UPDATE";
-                    //lbMode.Background = new SolidColorBrush(Colors.LightBlue);
-                    //lbMode.Content = "Updating Mode";
+                    btnRemove.Content = "REMOVE";                    
                     break;
             }
         }
@@ -162,13 +160,13 @@ namespace DTimeManagerGUI
         {
             try
             {
-                //if (dgAlarms.Items.Count == 0)
-                //    UpdateOperatorMode(OperatorMode.Add);
-
-                //int index = dgAlarms.SelectedIndex;
-                alarmEventList = alarmEventService.GetAll();
+                int index = dgAlarms.SelectedIndex;
+                alarmEventList = alarmEventService.GetAll().ToList();
                 dgAlarms.ItemsSource = alarmEventList;
-                //dgAlarms.SelectedIndex = mode == OperatorMode.Add ? -1 : Math.Min(index, dgAlarms.Items.Count - 1);
+                dgAlarms.SelectedIndex = mode == OperatorMode.Add ? -1 : Math.Min(index, dgAlarms.Items.Count - 1);
+
+                if (dgAlarms.Items.Count == 0)
+                    UpdateOperatorMode(OperatorMode.Add);
             }
             catch (Exception ex)
             {
@@ -182,6 +180,8 @@ namespace DTimeManagerGUI
             tbAlarmHours.Text = "12";
             tbAlarmMins.Text = "00";
             ckbActive.IsChecked = true;
+            lbActive.Content = "ACTIVE";
+            spActive.Background = new SolidColorBrush(Colors.LightGreen);
         }
 
         private void OnLoadingRow(object sender, DataGridRowEventArgs e)
@@ -209,13 +209,55 @@ namespace DTimeManagerGUI
             if (dgAlarms.SelectedIndex >= 0 && dgAlarms.SelectedIndex < dgAlarms.Items.Count)
             {
                 UpdateOperatorMode(OperatorMode.Update);
-                AlarmEvent selectedItem = (AlarmEvent)dgAlarms.SelectedItem;
+                selectedItem = (AlarmEvent)dgAlarms.SelectedItem;
                 tbEventName.Text = selectedItem.Name;
-                tbAlarmHours.Text = selectedItem.Time.Hours.ToString();
-                tbAlarmMins.Text = selectedItem.Time.Minutes.ToString();
+                tbAlarmHours.Text = selectedItem.Time.Hours < 10 ? "0" + selectedItem.Time.Hours : selectedItem.Time.Hours.ToString();
+                tbAlarmMins.Text = selectedItem.Time.Minutes < 10 ? "0" + selectedItem.Time.Minutes : selectedItem.Time.Minutes.ToString();
                 ckbActive.IsChecked = selectedItem.IsActived;
             }
         }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.mode == OperatorMode.Add)
+                ResetInfoToEmpty();
+            else
+            {
+                try
+                {
+                    if (selectedItem == null)
+                        throw new Exception("No item is selected!");
+                    else if (MessageBox.Show("Are you sure to delete?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes)
+                    {                        
+                        alarmEventService.Delete(selectedItem.Id);
+                        LoadData();
+                        MessageBox.Show("Delete the user successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Fail to delete!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void spActive_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ckbActive.IsChecked = !ckbActive.IsChecked;
+            if (ckbActive.IsChecked == true)
+            {
+                lbActive.Content = "ACTIVE";
+                spActive.Background = new SolidColorBrush(Colors.LightGreen);
+            }
+            else
+            {
+                lbActive.Content = "INACTIVE";
+                spActive.Background = new SolidColorBrush(Colors.DarkGray);
+            }
+            
+            //lbMode.Content = "Updating Mode";
+        }
+
         // Window Events
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -258,5 +300,7 @@ namespace DTimeManagerGUI
             Add,
             Update
         }
+
+        
     }
 }
