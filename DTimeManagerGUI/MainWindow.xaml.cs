@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -159,11 +160,9 @@ namespace DTimeManagerGUI
         private void LoadData()
         {
             try
-            {
-                int index = dgAlarms.SelectedIndex;
+            {                
                 alarmEventList = alarmEventService.GetAll().ToList();
                 dgAlarms.ItemsSource = alarmEventList;
-                dgAlarms.SelectedIndex = mode == OperatorMode.Add ? -1 : Math.Min(index, dgAlarms.Items.Count - 1);
 
                 if (dgAlarms.Items.Count == 0)
                     UpdateOperatorMode(OperatorMode.Add);
@@ -216,6 +215,64 @@ namespace DTimeManagerGUI
                 ckbActive.IsChecked = selectedItem.IsActived;
             }
         }
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateOperatorMode(OperatorMode.Add);
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(tbEventName.Text)) {
+                    MessageBox.Show("Please enter event name!", "Input Required", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                int hours = int.Parse(tbAlarmHours.Text);
+                int mins = int.Parse(tbAlarmMins.Text);
+                if (hours > 23)
+                {
+                    MessageBox.Show("Please enter the hours between 0 and 23!", "Invalid Input!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (mins < 0 || mins > 59)
+                {
+                    MessageBox.Show("Please enter the minutes between 0 and 59!", "Invalid Input!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (this.mode == OperatorMode.Add)
+                {
+                    alarmEventService.Create(new AlarmEvent()
+                    {
+                        Name = tbEventName.Text,
+                        Time = new TimeSpan(hours, mins, 0),
+                        IsActived = ckbActive.IsChecked == true,
+                        Manager = null,
+                    });
+                    LoadData();
+                    dgAlarms.SelectedIndex = dgAlarms.Items.Count - 1;
+                }
+                else
+                {
+                    selectedItem.Name = tbEventName.Text;
+                    selectedItem.Time = new TimeSpan(hours, mins, 0);
+                    selectedItem.IsActived = ckbActive.IsChecked == true;
+                    alarmEventService.Update(selectedItem);
+                    int index = dgAlarms.SelectedIndex + 0;
+                    LoadData();
+                    dgAlarms.SelectedIndex = index;
+                }
+                
+                MessageBox.Show(this.mode.ToString() + "ed successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Fail to " + this.mode.ToString() + "!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -231,7 +288,7 @@ namespace DTimeManagerGUI
                     {                        
                         alarmEventService.Delete(selectedItem.Id);
                         LoadData();
-                        MessageBox.Show("Delete the user successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Delete successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
                 catch (Exception ex)
