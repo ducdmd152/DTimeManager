@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTimeManagerGUI", "DTimeManagerGUI\DTimeManagerGUI.csproj", "{9D42CA72-E43F-4AF1-B93B-3F25D470454F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTimeManagerBO", "DTimeManagerBO\DTimeManagerBO.csproj", "{1B44416D-A36F-4F57-A6BE-E049DC8BB1C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTimeManagerRepository", "DTimeManagerRepository\DTimeManagerRepository.csproj", "{B582EF01-0418-4F58-BA30-6FC7D11A1206}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTimeManagerDAO", "DTimeManagerDAO\DTimeManagerDAO.csproj", "{CEB56613-EF51-4959-990A-F7DD8EA4CE0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTimeManagerService", "DTimeManagerService\DTimeManagerService.csproj", "{05671573-B503-47AA-BB73-B0C69B934AB7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D42CA72-E43F-4AF1-B93B-3F25D470454F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D42CA72-E43F-4AF1-B93B-3F25D470454F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D42CA72-E43F-4AF1-B93B-3F25D470454F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D42CA72-E43F-4AF1-B93B-3F25D470454F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B44416D-A36F-4F57-A6BE-E049DC8BB1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B44416D-A36F-4F57-A6BE-E049DC8BB1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B44416D-A36F-4F57-A6BE-E049DC8BB1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B44416D-A36F-4F57-A6BE-E049DC8BB1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B582EF01-0418-4F58-BA30-6FC7D11A1206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B582EF01-0418-4F58-BA30-6FC7D11A1206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B582EF01-0418-4F58-BA30-6FC7D11A1206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B582EF01-0418-4F58-BA30-6FC7D11A1206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEB56613-EF51-4959-990A-F7DD8EA4CE0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEB56613-EF51-4959-990A-F7DD8EA4CE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEB56613-EF51-4959-990A-F7DD8EA4CE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEB56613-EF51-4959-990A-F7DD8EA4CE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05671573-B503-47AA-BB73-B0C69B934AB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05671573-B503-47AA-BB73-B0C69B934AB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05671573-B503-47AA-BB73-B0C69B934AB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05671573-B503-47AA-BB73-B0C69B934AB7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0A67DBF5-C945-431B-BE05-6C9709BAF6B4}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,518 @@
+﻿<Window x:Class="MyShopManagementGUI.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyShopManagementGUI"
+        mc:Ignorable="d"
+        Title="AdminWindow" MinHeight="980" Width="1080"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid>
+        <Border CornerRadius="12">
+            <Border CornerRadius="10"
+                BorderThickness="1"
+                Opacity="1">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#462ADB" Offset="0"/>
+                        <GradientStop Color="#DA34AE" Offset="0.75"/>
+                        <GradientStop Color="#8A16C1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#CDFADB" Offset="0"/>
+                        <GradientStop Color="#FF8080" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            x:Name="txtWelcome"
+                            Text="Welcome to DTimeManager!"
+                               Foreground="Black"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
+                        <Button x:Name="btnMimimize"
+                            Background="#28AEED"
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnMimimize_Click"
+                            >
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#278BEF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="btnClose"
+                            Background="#DA34AE"
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="3"
+                            Click="btnClose_Click"
+                            >
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="#28AEED"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#278BEF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <TabControl
+                         Width="1056"
+                         HorizontalAlignment="Center"
+                         Grid.Row="2"
+                        Margin="0, 4, 0, 8">
+                        <!-- Tab 1 -->
+                        <TabItem Header="Countdown Timer">
+                            <Border
+                                    BorderThickness="1"
+                                    Opacity="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#462ADB" Offset="0"/>
+                                        <GradientStop Color="#DA34AE" Offset="0.75"/>
+                                        <GradientStop Color="#8A16C1" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#060531" Offset="0"/>
+                                        <GradientStop Color="#181448" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <StackPanel 
+                                Orientation="Vertical"
+                                Margin="10, 0, 10, 10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="center">
+
+                                    <TextBlock Text="Countdown Timer"
+                                       Foreground="White"
+                                       FontSize="25"
+                                       FontWeight="Medium"
+                                       FontFamily="Montserrat"
+                                       HorizontalAlignment="Center"
+                                               Margin="0, 0, 0, 20"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="tbHours"
+                                             FontSize="80"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="01"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="100"
+                                             HorizontalContentAlignment="Center"
+                                             Height="80"/>
+                                        <TextBlock Text=":"
+                                           Foreground="DarkGray"
+                                           FontSize="60"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           Margin="20, 10, 20, 0"/>
+                                        <TextBox x:Name="tbMins"
+                                             FontSize="80"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="20"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="100"
+                                             Height="80"
+                                                 HorizontalContentAlignment="Center"/>
+                                        <TextBlock Text=":"
+                                           Foreground="DarkGray"
+                                           FontSize="60"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           Margin="20, 10, 20, 0"/>
+                                        <TextBox x:Name="tbSeconds"
+                                             FontSize="80"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="01"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="100"
+                                             Height="80"
+                                             HorizontalContentAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="(hh:mm:ss)"
+                                           Foreground="White"
+                                           FontStyle="Italic"
+                                              
+                                           FontSize="32"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           HorizontalAlignment="Center"
+                                           Margin="0, 20, 20, 0"/>
+                                    <Button x:Name="btnAction"
+                                        BorderThickness="0"
+                                        Content="START"
+                                        Foreground="White"
+                                        FontSize="20"
+                                        FontFamily="Montserrat"
+                                        Cursor="Hand"
+                                        Margin="0, 40, 0, 0"
+                                        Click="btnLogin_Click"
+                                        >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#462AD8"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#28AEED"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="150" Height="40"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+
+                            </Border>
+                        </TabItem>
+                        <!-- Tab 2 -->
+                        <TabItem Header="Alarm Management">
+                            <Border
+                                    BorderThickness="1"
+                                    Opacity="1">
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#462ADB" Offset="0"/>
+                                        <GradientStop Color="#DA34AE" Offset="0.75"/>
+                                        <GradientStop Color="#8A16C1" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="#060531" Offset="0"/>
+                                        <GradientStop Color="#181448" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+
+                                <StackPanel 
+                                Orientation="Vertical"
+                                Margin="10, 0, 10, 10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="center">
+
+                                    <TextBlock Text="Alarm Event Setup"
+                                       Foreground="White"
+                                       FontSize="25"
+                                       FontWeight="Medium"
+                                       FontFamily="Montserrat"
+                                       HorizontalAlignment="Center"
+                                               Margin="0, 0, 0, 20"/>
+                                    <TextBlock Text="Event name"
+                                               HorizontalAlignment="Center"
+                                           Foreground="DarkGray"
+                                           FontSize="20"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           Margin="20, 10, 20, 0"/>
+                                    <TextBox x:Name="tbEventName"
+                                             FontSize="40"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="PRN221 Assignment 3"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="520"
+                                             HorizontalContentAlignment="Center"
+                                             Height="60"/>
+                                    <TextBlock Text="Alarm Time"
+                                               HorizontalAlignment="center"
+                                           Foreground="DarkGray"
+                                           FontSize="20"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           Margin="20, 30, 20, 0"/>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBox x:Name="tbAlarmHours"
+                                             FontSize="60"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="01"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="90"
+                                             HorizontalContentAlignment="Center"
+                                             Height="66"/>
+                                        <TextBlock Text=":"
+                                           Foreground="DarkGray"
+                                           FontSize="60"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           Margin="10, 5, 10, 0"/>
+                                        <TextBox x:Name="tbAlarmMins"
+                                             FontSize="60"
+                                             FontWeight="Medium"
+                                             FontFamily="Montserrat"
+                                             Background="Transparent"
+                                             Foreground="White"
+                                             CaretBrush="LightGray"
+                                             BorderBrush="DarkGray"
+                                             Text="20"
+                                             BorderThickness="0, 0, 0, 1"
+                                             VerticalContentAlignment="Center"
+                                             Margin="0, 0, 0, 0"
+                                             Padding="0, 0, 0, 0"
+                                             Width="90"
+                                             Height="66"
+                                                 HorizontalContentAlignment="Center"/>
+                                    </StackPanel>
+                                    <TextBlock Text="(hh:mm)"
+                                           Foreground="White"
+                                           FontStyle="Italic"
+                                              
+                                           FontSize="32"
+                                           FontWeight="Medium"
+                                           FontFamily="Montserrat"
+                                           HorizontalAlignment="Center"
+                                           Margin="0, 20, 0, 0"/>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="center"
+                                                VerticalAlignment="center"
+                                                Background="LightGreen"
+                                                Margin="0, 20, 0, 0"
+                                                >
+                                        <CheckBox x:Name="ckbActive"
+                                                  VerticalAlignment="center"
+                                                  Margin="4, 0, 0, 0"/>
+                                        <Label x:Name="lbActive" Content="ACTIVE"  Height="36" Margin="8,0,4,0" FontSize="20"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button x:Name="btnSave"
+                                            BorderThickness="0"
+                                            Content="SAVE"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            FontFamily="Montserrat"
+                                            Cursor="Hand"
+                                            Margin="0, 40, 10, 0"
+                                            Click="btnLogin_Click"
+                                            >
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#462AD8"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#28AEED"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="150" Height="42"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                        <Button x:Name="btnRemove"
+                                            BorderThickness="2"
+                                            BorderBrush="#FA8072"
+                                            Content="REMOVE"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            FontFamily="Montserrat"
+                                            Cursor="Hand"
+                                            Margin="10, 40, 0, 0"
+                                            Click="btnLogin_Click"
+                                            >
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#FA8072"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#FA8072"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="150" Height="42"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <Button x:Name="btnNew"
+                                            BorderThickness="0"
+                                            Content="ADD NEW"
+                                            Foreground="White"
+                                            FontSize="16"
+                                            FontFamily="Montserrat"
+                                            Cursor="Hand"
+                                            Margin="0, 40, 10, 0"
+                                            Click="btnLogin_Click"
+                                            HorizontalAlignment="Right"
+                                            >
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#A8CD9F"/>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#A5DD9B"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Width="120" Height="42"
+                                            CornerRadius="16"
+                                            Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
+                                        <DataGrid x:Name="dgAlarms"
+                                              Background="#181448"
+                                              Width="1000"
+                                              Margin="0, 10, 0, 0"
+                                              LoadingRow="OnLoadingRow"
+                                              AutoGeneratingColumn="OnAutoGeneratingColumn"
+                                              d:ItemsSource="{d:SampleData ItemCount=5}" IsReadOnly="True" CanUserAddRows="False" MinHeight="140" 
+                                              SelectionChanged="dgUsers_SelectionChanged">
+                                            <DataGrid.RowStyle>
+                                                <Style TargetType="DataGridRow">
+                                                    <Setter Property="Background" Value="#181448"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Style>
+                                            </DataGrid.RowStyle>
+                                            <DataGrid.Resources>
+                                                <Style TargetType="DataGridCell">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="SkyBlue"/>
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.Resources>
+                                        </DataGrid>
+                                    </ScrollViewer>
+
+                                </StackPanel>
+                            </Border>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+        </Border>
+    </Grid>
+</Window>
