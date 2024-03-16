@@ -8,8 +8,8 @@ namespace DTimeManagerService
         private Thread timerThread;
         private TimeSpan duration;
         private bool isRunning;
-        private bool isPaused; // Biến để kiểm soát việc tạm dừng luồng
-        private object lockObject = new object(); // Đối tượng khóa để đồng bộ hóa trạng thái tạm dừng
+        private bool isPaused;
+        private object lockObject = new object();
 
         public event EventHandler<string> TimerTick;
         public event EventHandler TimerElapsed;
@@ -63,7 +63,7 @@ namespace DTimeManagerService
                 lock (lockObject)
                 {
                     isPaused = false;
-                    Monitor.Pulse(lockObject); // Thức tỉnh luồng sau khi tạm dừng
+                    Monitor.Pulse(lockObject);
                 }
             }
         }
@@ -81,10 +81,9 @@ namespace DTimeManagerService
             {
                 lock (lockObject)
                 {
-                    // Kiểm tra xem luồng đã bị tạm dừng chưa
                     while (isPaused)
                     {
-                        Monitor.Wait(lockObject); // Tạm dừng luồng
+                        Monitor.Wait(lockObject);
                     }
                 }
 

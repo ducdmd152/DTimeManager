@@ -1,0 +1,6 @@
+### Outline:
+1. Introduction
+2. Features
++) Countdown Timer
++) Alarm Event CRUD
++) Validation

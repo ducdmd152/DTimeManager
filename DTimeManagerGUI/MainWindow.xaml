@@ -359,7 +359,7 @@
                                            FontFamily="Montserrat"
                                            Margin="20, 30, 20, 0"/>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                        <TextBox x:Name="tbAlarmHours"
+                                        <TextBox x:Name="tbAlarmHours" PreviewTextInput="TextBox_PreviewTextInput"
                                              FontSize="60"
                                              FontWeight="Medium"
                                              FontFamily="Montserrat"
@@ -381,7 +381,7 @@
                                            FontWeight="Medium"
                                            FontFamily="Montserrat"
                                            Margin="10, 5, 10, 0"/>
-                                        <TextBox x:Name="tbAlarmMins"
+                                        <TextBox x:Name="tbAlarmMins" PreviewTextInput="TextBox_PreviewTextInput"
                                              FontSize="60"
                                              FontWeight="Medium"
                                              FontFamily="Montserrat"
@@ -429,7 +429,7 @@
                                             FontSize="20"
                                             FontFamily="Montserrat"
                                             Cursor="Hand"
-                                            Margin="0, 20, 10, 0" Click="btnSave_Click"
+                                            Margin="0, 30, 10, 0" Click="btnSave_Click"
                                             
                                             >
                                             <Button.Style>
@@ -461,7 +461,7 @@
                                             FontSize="20"
                                             FontFamily="Montserrat"
                                             Cursor="Hand"
-                                            Margin="10, 20, 0, 0" Click="btnRemove_Click"
+                                            Margin="10, 30, 0, 0" Click="btnRemove_Click"
                                             
                                             >
                                             <Button.Style>

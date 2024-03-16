@@ -132,6 +132,11 @@ namespace DTimeManagerGUI
         private IAlarmEventService alarmEventService;
         private List<AlarmEvent> alarmEventList;
         private AlarmEvent selectedItem;
+        Action<string, string> showAlarmDelegate = (title, message) =>
+        {
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+        };
+
         private void InitAlarmEventManagement()
         {
             alarmEventService = new AlarmEventService();
@@ -163,6 +168,10 @@ namespace DTimeManagerGUI
             {                
                 alarmEventList = alarmEventService.GetAll().ToList();
                 dgAlarms.ItemsSource = alarmEventList;
+                foreach (var alarmEvent in alarmEventList)
+                {
+                    alarmEvent.ShowAlarmDelegate = showAlarmDelegate;
+                }
 
                 if (dgAlarms.Items.Count == 0)
                     UpdateOperatorMode(OperatorMode.Add);
@@ -215,6 +224,7 @@ namespace DTimeManagerGUI
                 ckbActive.IsChecked = selectedItem.IsActived;
             }
         }
+
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             UpdateOperatorMode(OperatorMode.Add);
@@ -245,15 +255,19 @@ namespace DTimeManagerGUI
 
                 if (this.mode == OperatorMode.Add)
                 {
-                    alarmEventService.Create(new AlarmEvent()
+                    var alarm = new AlarmEvent()
                     {
                         Name = tbEventName.Text,
                         Time = new TimeSpan(hours, mins, 0),
                         IsActived = ckbActive.IsChecked == true,
-                        Manager = null,
-                    });
+                        ShowAlarmDelegate = showAlarmDelegate
+                    };
+
+                    alarmEventService.Create(alarm);
+                    
                     LoadData();
                     dgAlarms.SelectedIndex = dgAlarms.Items.Count - 1;
+                    MessageBox.Show("Added successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -264,16 +278,17 @@ namespace DTimeManagerGUI
                     int index = dgAlarms.SelectedIndex + 0;
                     LoadData();
                     dgAlarms.SelectedIndex = index;
+                    MessageBox.Show("Updated successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 
-                MessageBox.Show(this.mode.ToString() + "ed successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Fail to " + this.mode.ToString() + "!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             if (this.mode == OperatorMode.Add)
