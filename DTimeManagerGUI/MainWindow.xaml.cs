@@ -44,11 +44,11 @@ namespace DTimeManagerGUI
 
         private void CountdownTimerReset()
         {
+            countdownTimerManager.Reset();
             tbHours.Text = "00";
             tbMins.Text = "00";
             tbSeconds.Text = "00";
-            btnAction.Content = "START";
-            countdownTimerManager.Reset();
+            btnAction.Content = "START";            
         }
 
         private void TimerTickHandler(object sender, string remainingTime)
@@ -167,7 +167,10 @@ namespace DTimeManagerGUI
             try
             {                
                 alarmEventList = alarmEventService.GetAll().ToList();
+                int index = dgAlarms.SelectedIndex;
                 dgAlarms.ItemsSource = alarmEventList;
+                dgAlarms.SelectedIndex = Math.Min(index, dgAlarms.Items.Count - 1);
+                selectedItem = (AlarmEvent)dgAlarms.SelectedItem;
                 foreach (var alarmEvent in alarmEventList)
                 {
                     alarmEvent.ShowAlarmDelegate = showAlarmDelegate;
@@ -199,7 +202,7 @@ namespace DTimeManagerGUI
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName == "Id" || e.PropertyName == "Manager")
+            if (e.PropertyName == "Id" || e.PropertyName == "Manager" || e.PropertyName == "ShowAlarmDelegate")
             {
                 e.Cancel = true;
             }
@@ -302,7 +305,7 @@ namespace DTimeManagerGUI
                     else if (MessageBox.Show("Are you sure to delete?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No) == MessageBoxResult.Yes)
                     {                        
                         alarmEventService.Delete(selectedItem.Id);
-                        LoadData();
+                        LoadData();                        
                         MessageBox.Show("Delete successfully!", "Successfully", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }

@@ -97,8 +97,11 @@ namespace DTimeManagerService
                 }                
             }
 
-            TimerElapsed?.Invoke(this, EventArgs.Empty);
-            isRunning = false;
+            if (isRunning)
+            {
+                TimerElapsed?.Invoke(this, EventArgs.Empty);
+                isRunning = false;
+            }            
         }
     }
 }
