@@ -225,6 +225,16 @@ namespace DTimeManagerGUI
                 tbAlarmHours.Text = selectedItem.Time.Hours < 10 ? "0" + selectedItem.Time.Hours : selectedItem.Time.Hours.ToString();
                 tbAlarmMins.Text = selectedItem.Time.Minutes < 10 ? "0" + selectedItem.Time.Minutes : selectedItem.Time.Minutes.ToString();
                 ckbActive.IsChecked = selectedItem.IsActived;
+                if (ckbActive.IsChecked == true)
+                {
+                    lbActive.Content = "ACTIVE";
+                    spActive.Background = new SolidColorBrush(Colors.LightGreen);
+                }
+                else
+                {
+                    lbActive.Content = "INACTIVE";
+                    spActive.Background = new SolidColorBrush(Colors.DarkGray);
+                }
             }
         }
 
