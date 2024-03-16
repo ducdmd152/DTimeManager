@@ -223,15 +223,18 @@
                                            FontFamily="Montserrat"
                                            HorizontalAlignment="Center"
                                            Margin="0, 20, 20, 0"/>
-                                    <Button x:Name="btnAction"
-                                        BorderThickness="0"
-                                        Content="START"
-                                        Foreground="White"
-                                        FontSize="20"
-                                        FontFamily="Montserrat"
-                                        Cursor="Hand"
-                                        Margin="0, 40, 0, 0"
-                                        Click="btnLogin_Click"
+                                    <StackPanel
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                        <Button x:Name="btnAction"
+                                            BorderThickness="0"
+                                            Content="START"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            FontFamily="Montserrat"
+                                            Cursor="Hand"
+                                            Margin="0, 40, 10, 0"
+                                            
                                         >
                                         <Button.Style>
                                             <Style TargetType="Button">
@@ -254,6 +257,38 @@
                                             </ControlTemplate>
                                         </Button.Template>
                                     </Button>
+                                        <Button x:Name="btnReset"
+                                            BorderThickness="0"
+                                            Content="RESET"
+                                            Foreground="White"
+                                            FontSize="20"
+                                            FontFamily="Montserrat"
+                                            Cursor="Hand"
+                                            Margin="10, 40, 0, 0"
+                                        >
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Setter Property="Background" Value="#59B4C3"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="#59B4C3"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Width="150" Height="40"
+                                            CornerRadius="20"
+                                            Background="{TemplateBinding Background}">
+                                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </StackPanel>
+                                    
                                 </StackPanel>
 
                             </Border>
@@ -390,7 +425,7 @@
                                             FontFamily="Montserrat"
                                             Cursor="Hand"
                                             Margin="0, 40, 10, 0"
-                                            Click="btnLogin_Click"
+                                            
                                             >
                                             <Button.Style>
                                                 <Style TargetType="Button">
@@ -422,7 +457,7 @@
                                             FontFamily="Montserrat"
                                             Cursor="Hand"
                                             Margin="10, 40, 0, 0"
-                                            Click="btnLogin_Click"
+                                            
                                             >
                                             <Button.Style>
                                                 <Style TargetType="Button">
@@ -455,7 +490,7 @@
                                             FontFamily="Montserrat"
                                             Cursor="Hand"
                                             Margin="0, 40, 10, 0"
-                                            Click="btnLogin_Click"
+                                            
                                             HorizontalAlignment="Right"
                                             >
                                         <Button.Style>
