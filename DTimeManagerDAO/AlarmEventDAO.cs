@@ -6,17 +6,19 @@ namespace DTimeManagerDAO
     {
         private static AlarmEventDAO instance = null;
         private static readonly object instanceLock = new object();
-        private int idCounter = 0;
+        private static int idCounter = 0;
         private static List<AlarmEvent> data = new List<AlarmEvent>()
         {            
             new AlarmEvent()
             {
+                Id= idCounter++,
                 Name = "PRN221 Assignment 3",
                 Time = new TimeSpan(15, 0, 0),
                 IsActived = true,
             },
             new AlarmEvent()
             {
+                Id= idCounter++,
                 Name = "PRU212 Lab 3",
                 Time = new TimeSpan(21, 30, 0),
                 IsActived = true,

@@ -1,6 +1,8 @@
-﻿using DTimeManagerService;
+﻿using DTimeManagerBO;
+using DTimeManagerService;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,7 @@ namespace DTimeManagerGUI
         {
             InitializeComponent();
             InitializeCountdownTimer();
+            InitAlarmEventManagement();
         }
 
         // COUNTDOWN TIMER TAB
@@ -124,6 +127,63 @@ namespace DTimeManagerGUI
             CountdownTimerReset();
         }
         // ALARM EVENT MANAGEMENT TAB
+        private OperatorMode mode;
+        private IAlarmEventService alarmEventService;
+        private List<AlarmEvent> alarmEventList;
+        private void InitAlarmEventManagement()
+        {
+            alarmEventService = new AlarmEventService();
+            UpdateOperatorMode(OperatorMode.Add);
+            LoadData();         
+        }
+
+        private void UpdateOperatorMode(OperatorMode mode)
+        {
+            this.mode = mode;
+            switch (mode)
+            {
+                case OperatorMode.Add:
+                    btnSave.Content = "NEW";
+                    dgAlarms.SelectedIndex = -1;
+                    btnRemove.Content = "CANCEL";
+                    ResetInfoToEmpty();
+                    //lbMode.Content = "Adding Mode";
+                    //lbMode.Background = new SolidColorBrush(Colors.LightGreen);
+                    break;
+                case OperatorMode.Update:
+                    btnSave.Content = "UPDATE";
+                    //lbMode.Background = new SolidColorBrush(Colors.LightBlue);
+                    //lbMode.Content = "Updating Mode";
+                    break;
+            }
+        }
+
+        private void LoadData()
+        {
+            try
+            {
+                //if (dgAlarms.Items.Count == 0)
+                //    UpdateOperatorMode(OperatorMode.Add);
+
+                //int index = dgAlarms.SelectedIndex;
+                alarmEventList = alarmEventService.GetAll();
+                dgAlarms.ItemsSource = alarmEventList;
+                //dgAlarms.SelectedIndex = mode == OperatorMode.Add ? -1 : Math.Min(index, dgAlarms.Items.Count - 1);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Can not load data: " + ex.Message, "Something is wrong!");
+            }
+        }
+
+        private void ResetInfoToEmpty()
+        {
+            tbEventName.Text = string.Empty;
+            tbAlarmHours.Text = "12";
+            tbAlarmMins.Text = "00";
+            ckbActive.IsChecked = true;
+        }
+
         private void OnLoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
@@ -131,26 +191,30 @@ namespace DTimeManagerGUI
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            //if (e.PropertyName == "Password" || e.PropertyName == "RoleId")
-            //{
-            //    e.Cancel = true;
-            //}
+            if (e.PropertyName == "Id" || e.PropertyName == "Manager")
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                if (e.Column is DataGridTextColumn textColumn)
+                {
+                    textColumn.Width = new DataGridLength(300);
+                }
+            }
         }
 
         private void dgAlarms_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            //if (dgUsers.SelectedIndex >= 0 && dgUsers.SelectedIndex < dgUsers.Items.Count)
-            //{
-            //    UpdateOperatorMode(OperatorMode.Update);
-            //    User selectedItem = (User)dgUsers.SelectedItem;
-            //    txtEmail.Text = selectedItem.Email;
-            //    txtName.Text = selectedItem.Name;
-            //    txtPassword.Password = selectedItem.Password;
-            //    txtPhone.Text = selectedItem.Phone;
-            //    txtAddress.Text = selectedItem.Address;
-            //    chkStatus.IsChecked = selectedItem.Enabled;
-            //    cmbUserRole.SelectedValue = selectedItem.RoleId;
-            //}
+            if (dgAlarms.SelectedIndex >= 0 && dgAlarms.SelectedIndex < dgAlarms.Items.Count)
+            {
+                UpdateOperatorMode(OperatorMode.Update);
+                AlarmEvent selectedItem = (AlarmEvent)dgAlarms.SelectedItem;
+                tbEventName.Text = selectedItem.Name;
+                tbAlarmHours.Text = selectedItem.Time.Hours.ToString();
+                tbAlarmMins.Text = selectedItem.Time.Minutes.ToString();
+                ckbActive.IsChecked = selectedItem.IsActived;
+            }
         }
         // Window Events
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -188,6 +252,11 @@ namespace DTimeManagerGUI
         private bool IsTextNumeric(string text)
         {
             return !string.IsNullOrEmpty(text) && text.All(char.IsDigit);
-        }        
+        }
+        private enum OperatorMode
+        {
+            Add,
+            Update
+        }
     }
 }

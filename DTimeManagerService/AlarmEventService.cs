@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace DTimeManagerService
 {
-    public class AlarmEventService
+    public class AlarmEventService : IAlarmEventService
     {
-        private IAlarmEventRepository alarmEventRepository;
-        List<AlarmEvent> GetAll() => alarmEventRepository.GetAll();
-        AlarmEvent Get(int id) => alarmEventRepository.Get(id);
-        AlarmEvent Create(AlarmEvent item) => alarmEventRepository.Create(item);
-        AlarmEvent Update(AlarmEvent item) => alarmEventRepository.Update(item);
-        AlarmEvent Delete(int id) => alarmEventRepository.Delete(id);
+        private IAlarmEventRepository alarmEventRepository = new AlarmEventRepository();
+        public List<AlarmEvent> GetAll() => alarmEventRepository.GetAll();
+        public AlarmEvent Get(int id) => alarmEventRepository.Get(id);
+        public AlarmEvent Create(AlarmEvent item) => alarmEventRepository.Create(item);
+        public AlarmEvent Update(AlarmEvent item) => alarmEventRepository.Update(item);
+        public AlarmEvent Delete(int id) => alarmEventRepository.Delete(id);
     }
 }

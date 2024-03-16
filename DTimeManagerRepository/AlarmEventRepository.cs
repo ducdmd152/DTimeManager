@@ -10,10 +10,10 @@ namespace DTimeManagerRepository
 {
     public class AlarmEventRepository : IAlarmEventRepository
     {
-        List<AlarmEvent> IAlarmEventRepository.GetAll() => AlarmEventDAO.Instance.GetAll();
-        AlarmEvent IAlarmEventRepository.Get(int id) => AlarmEventDAO.Instance.Get(id);
-        AlarmEvent IAlarmEventRepository.Create(AlarmEvent item) => AlarmEventDAO.Instance.Create(item);
-        AlarmEvent IAlarmEventRepository.Update(AlarmEvent item) => AlarmEventDAO.Instance.Update(item);
-        AlarmEvent IAlarmEventRepository.Delete(int id) => AlarmEventDAO.Instance.Delete(id);
+        public List<AlarmEvent> GetAll() => AlarmEventDAO.Instance.GetAll();
+        public AlarmEvent Get(int id) => AlarmEventDAO.Instance.Get(id);
+        public AlarmEvent Create(AlarmEvent item) => AlarmEventDAO.Instance.Create(item);
+        public AlarmEvent Update(AlarmEvent item) => AlarmEventDAO.Instance.Update(item);
+        public AlarmEvent Delete(int id) => AlarmEventDAO.Instance.Delete(id);
     }
 }

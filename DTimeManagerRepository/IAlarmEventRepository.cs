@@ -9,10 +9,10 @@ namespace DTimeManagerRepository
 {
     public interface IAlarmEventRepository
     {
-        public List<AlarmEvent> GetAll();
-        public AlarmEvent Get(int id);
-        public AlarmEvent Create(AlarmEvent item);
-        public AlarmEvent Update(AlarmEvent item);
-        public AlarmEvent Delete(int id);
+        List<AlarmEvent> GetAll();
+        AlarmEvent Get(int id);
+        AlarmEvent Create(AlarmEvent item);
+        AlarmEvent Update(AlarmEvent item);
+        AlarmEvent Delete(int id);
     }
 }
